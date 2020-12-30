@@ -13,17 +13,32 @@ interface  Dao{
  @Insert
  fun addPlaces(places: Places)
 
- //get Places in to DO
+
  @Query("SELECT * FROM Places")
  fun getPlaces():LiveData<List<Places>>
 
- //get the Places in  Inprogress
- @Query("SELECT * FROM Places where type=2 ORDER BY id DESC ")
- fun getPlacesInProgress():LiveData<List<Places>>
+ //get the Places
+ @Query("SELECT * FROM Places where type='Hospitals' ORDER BY id DESC ")
+ fun getPlacesInHospitals():LiveData<List<Places>>
 
- //get the Places in  Done
- @Query("SELECT * FROM Places where type=3  ORDER BY id DESC")
- fun getPlacesDone():LiveData<List<Places>>
+ //get the Schools Places
+ @Query("SELECT * FROM Places where type='Schools' ORDER BY id DESC ")
+ fun getPlacesSchools():LiveData<List<Places>>
+
+ //get the Restaurants Places
+ @Query("SELECT * FROM Places where type='Restaurants' ORDER BY id DESC ")
+ fun getPlacesRestaurants():LiveData<List<Places>>
+
+ //get the Cafes Places
+ @Query("SELECT * FROM Places where type='Cafes' ORDER BY id DESC ")
+ fun getPlacesCafes():LiveData<List<Places>>
+
+
+ //get the Super Market Places
+ @Query("SELECT * FROM Places where type='Super Market' ORDER BY id DESC ")
+ fun getPlacesSuperMarket():LiveData<List<Places>>
+
+
 
  @Update
  fun updatePlaces(places: Places)

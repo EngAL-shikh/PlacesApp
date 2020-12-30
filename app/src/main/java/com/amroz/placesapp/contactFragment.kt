@@ -1,8 +1,8 @@
 package com.amroz.placesapp
 
+import android.content.Intent
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,26 +11,27 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.amroz.placesapp.DialogAdd.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_contact.*
+import java.io.Serializable
 
 
-class contactFragment() : Fragment(), Callbacks {
+class contactFragment() : Fragment() {
 
-
+    var db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private var adapter: TaskAdapter? = TaskAdapter(emptyList())
     lateinit var rec:RecyclerView
     lateinit var add1:FloatingActionButton
-    lateinit var et_title:EditText
-    lateinit var et_det:EditText
-    lateinit var et_lat:EditText
-    lateinit var et_lang:EditText
-     lateinit var save:Button
+     var list:List<Places> = emptyList()
+
+    var listPlace= listOf<Places>()
     private val ViewModel by lazy {
         ViewModelProviders.of(this).get(ViewModel::class.java)
     }
@@ -66,34 +67,19 @@ class contactFragment() : Fragment(), Callbacks {
 
           var rec=view.findViewById(R.id.rec) as RecyclerView
           var add1=view.findViewById(R.id.add) as FloatingActionButton
-         et_title=view.findViewById(R.id.ed_title) as EditText
-        et_det=view.findViewById(R.id.ed_det) as EditText
-        et_lat=view.findViewById(R.id.ed_latitude) as EditText
-        et_lang=view.findViewById(R.id.ed_longitude) as EditText
-        save=view.findViewById(R.id.ed_save) as Button
+
 
 
         add1.setOnClickListener {
 
-
-            card_add_place.visibility=View.VISIBLE
-
+            var intent= Intent(context,AddNewsLocation::class.java)
+            startActivity(intent)
 
 
 
 
         }
 
-
-      save.setOnClickListener {
-          var data=Places(0,et_title.text.toString(),
-              et_det.text.toString(),
-              et_lat.text.toString().toFloat(),
-              et_lang.text.toString().toFloat(),
-              "")
-            ViewModel.addtask(data)
-            card_add_place.visibility=View.GONE
-        }
 
         rec.layoutManager = LinearLayoutManager(context)
         // Inflate the layout for this fragment
@@ -105,10 +91,10 @@ class contactFragment() : Fragment(), Callbacks {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (contact=="profile"){
+        if (contact=="Hospitals"){
 
             Log.d("adding","done")
-            ViewModel.placesListLiveData.observe(
+            ViewModel.HospitalsListLiveData.observe(
                 viewLifecycleOwner,
                 Observer { places ->
                     places?.let {
@@ -116,9 +102,81 @@ class contactFragment() : Fragment(), Callbacks {
                         Log.d("amroz",places.size.toString())
                         updateUI(places)
 
+
+                        //list=Places
+                        // toMap(list)
+                       var list=CatList(places)
+
+                        var intent=Intent(context,MapsActivity::class.java)
+                        intent.putExtra("places",list)
+                        startActivity(intent)
+
+
+
+
+
                     }
                 })
+        }else if (contact=="Schools"){
+            ViewModel.SchoolsListLiveData.observe(
+                viewLifecycleOwner,
+                Observer { places ->
+                    places?.let {
+
+                        Log.d("amroz",places.size.toString())
+                        updateUI(places)
+
+
+
+                    }
+                })
+
+        }else if (contact=="Restaurants"){
+
+            ViewModel.RestaurantsListLiveData.observe(
+                viewLifecycleOwner,
+                Observer { places ->
+                    places?.let {
+
+                        Log.d("amroz",places.size.toString())
+                        updateUI(places)
+
+
+
+                    }
+                })
+
+        }else if (contact=="Cafes"){
+
+            ViewModel.CafesListLiveData.observe(
+                viewLifecycleOwner,
+                Observer { places ->
+                    places?.let {
+
+                        Log.d("amroz",places.size.toString())
+                        updateUI(places)
+
+
+
+                    }
+                })
+        }else{
+            ViewModel.SuperMarketListLiveData.observe(
+                viewLifecycleOwner,
+                Observer { places ->
+                    places?.let {
+
+                        Log.d("amroz",places.size.toString())
+                        updateUI(places)
+
+
+
+                    }
+                })
+
         }
+
+
 
     }
 
@@ -127,6 +185,7 @@ class contactFragment() : Fragment(), Callbacks {
         val Describe: TextView = itemView.findViewById(R.id.Describe)
         val latitude: TextView = itemView.findViewById(R.id.latitude)
          val longitude: TextView = itemView.findViewById(R.id.longitude)
+         val card: CardView = itemView.findViewById(R.id.places_card)
         // val add1: FloatingActionButton = itemView.findViewById(R.id.add)
 
 
@@ -146,6 +205,19 @@ class contactFragment() : Fragment(), Callbacks {
 
 
 
+            card.setOnClickListener {
+
+
+                //var list=  Places(0,places.title,places.Describe,places.latitude,places.longitude,1)
+              //  toMap(list)
+
+
+            }
+
+
+
+
+
 
 
 
@@ -154,36 +226,7 @@ class contactFragment() : Fragment(), Callbacks {
 
         }
 
-        init {
 
-
-
-
-//
-
-//            delete.setOnClickListener {
-//
-//
-//
-//                val builder= AlertDialog.Builder(requireContext())
-//                builder.setPositiveButton("yes"){_,_->
-//
-//                    ViewModel.deletPlaces(places)
-//                }
-//
-//                builder.setNegativeButton("no"){_,_->
-//
-//
-//                }
-//                builder.setTitle("Are sure you want to delete ${places.title}")
-//                builder.setMessage("Are you sure")
-//                builder.create().show()
-//            }
-
-
-
-
-        }
 
 
 
@@ -233,8 +276,80 @@ class contactFragment() : Fragment(), Callbacks {
     }
 
 
-    override fun addnewPlace(places: Places) {
-       ViewModel.addtask(places)
+
+
+    fun toMap(places: Places){
+        var intent=Intent(context,MapsActivity::class.java)
+         intent.putExtra("places",places)
+        startActivity(intent)
+
     }
 
+    fun getPlaces() {
+     var db: FirebaseFirestore = FirebaseFirestore.getInstance()
+        db.collection("Places")
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val newsList = mutableListOf<Places>();
+                    for (places in task.result!!) {
+
+                     var title=places.data.getValue("title")
+                     var det=places.data.getValue("describe")
+                     var lat=places.data.getValue("latitude")
+                     var lang=places.data.getValue("longitude")
+                     var type=places.data.getValue("type")
+
+                        var data =Places(0,title.toString(),
+                            det.toString(),
+                            lat.toString().toFloat(),
+                            lang.toString().toFloat()
+                            ,type.toString())
+
+
+                        ViewModel.addtask(data)
+
+
+                    }
+
+
+
+                } else {
+                    Log.w("TAG", "Error getting documents.", task.exception)
+                }
+            }
+    }
+
+//    fun addToPlaces(){
+//
+//
+//
+//
+//
+//        db= FirebaseFirestore.getInstance()
+//
+////        var data=Places(0,et_title.text.toString(),
+//////              et_det.text.toString(),
+//////              et_lat.text.toString().toFloat(),
+//////              et_lang.text.toString().toFloat(),
+//////              1)
+//
+//
+//        var place= Places(0,et_title.text.toString(),et_det.text.toString(),
+//        et_lat.text.toString().toFloat(),
+//        et_lang.text.toString().toFloat(),
+//        "")
+//        db.collection("Places").add(place).addOnCompleteListener{
+//            if (it.isSuccessful){
+//                Toast.makeText(context,"added", Toast.LENGTH_LONG).show()
+//
+//            }else{
+//                Toast.makeText(context,"filde to add ${it.exception}", Toast.LENGTH_LONG).show()
+//                Log.d("test",it.exception.toString())
+//
+//            }
+//        }
+//
+//
+//    }
 }

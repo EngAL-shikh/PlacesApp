@@ -30,7 +30,14 @@ class PlacesRepository private constructor(context: Context){
      }
 
 
+    // select  all
 
+    fun getPlacess(): LiveData<List<Places>> = Dao.getPlaces()
+    fun getHospitals(): LiveData<List<Places>> = Dao.getPlacesInHospitals()
+    fun getSchools(): LiveData<List<Places>> = Dao.getPlacesSchools()
+    fun getRestaurants(): LiveData<List<Places>> = Dao.getPlacesRestaurants()
+    fun getCafes(): LiveData<List<Places>> = Dao.getPlacesCafes()
+    fun getSuperMarket(): LiveData<List<Places>> = Dao.getPlacesSuperMarket()
 
 
     fun deletePlaces(plase: Places){
@@ -39,9 +46,7 @@ class PlacesRepository private constructor(context: Context){
         }
     }
 
-    // select  all
 
-    fun getPlacess(): LiveData<List<Places>> = Dao.getPlaces()
 
 
 

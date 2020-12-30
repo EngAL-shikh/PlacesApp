@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        sendcontact("Hospitals")
 
 
         toolbar = findViewById(R.id.toolbar)
@@ -52,31 +52,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_profile -> {
+            R.id.nav_Hospitals -> {
 
 
-                sendcontact("profile")
+                sendcontact("Hospitals")
 
 
             }
-            R.id.nav_messages -> {
+            R.id.nav_Schools -> {
 
-                sendcontact("messages")
-
-            }
-            R.id.nav_friends -> {
-
-                sendcontact("Frinds")
+                sendcontact("Schools")
 
             }
-            R.id.nav_update -> {
+            R.id.nav_Restaurants -> {
 
-                sendcontact("update")
+                sendcontact("Restaurants")
 
             }
-            R.id.nav_logout -> {
+            R.id.nav_Cafes -> {
 
+                sendcontact("Cafes")
 
+            }
+            R.id.nav_SuperMarket -> {
+
+                sendcontact("SuperMarket")
 
             }
         }
