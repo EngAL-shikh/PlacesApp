@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "975273056072",
+    "project_id": "placesapp-f0209",
+    "storage_bucket": "placesapp-f0209.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975273056072:android:5c2805421d2ea31729057d",
+        "android_client_info": {
+          "package_name": "com.amroz.placesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975273056072-0471ed5bh7jg11ugig3polrsj2n9ears.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANguAY4zI1mtlNcfk8XAMqA0N_cvZlQGI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975273056072-0471ed5bh7jg11ugig3polrsj2n9ears.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

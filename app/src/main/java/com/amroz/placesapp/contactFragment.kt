@@ -103,7 +103,7 @@ class contactFragment() : Fragment() {
                         updateUI(places)
 
 
-                        //list=Places
+                        ///list=Places
                         // toMap(list)
                        var list=CatList(places)
 
