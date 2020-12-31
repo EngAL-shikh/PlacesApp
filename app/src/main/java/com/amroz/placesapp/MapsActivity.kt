@@ -65,10 +65,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }else if (getLocation=="2"){
 
             // get latitude and longitude frome the map
-            var newlocation=LatLng(15.362812860935936, 44.20591257512569)
+            var newlocation=LatLng(15.364015194891525,44.20692175626755)
             mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
             mMap.addMarker(MarkerOptions().position(newlocation).title("NON"))
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newlocation, 12F))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newlocation, 17F))
             mMap.setOnMapClickListener(object :GoogleMap.OnMapClickListener {
                 override fun onMapClick(latlng :LatLng) {
                     val location1 = LatLng(latlng.latitude,latlng.longitude)
