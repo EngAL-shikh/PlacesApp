@@ -1,9 +1,12 @@
 package com.amroz.placesapp
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
@@ -28,6 +31,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        var info_show=findViewById(R.id.info_show) as TextView
+
+        info_show.setOnClickListener {
+            var intent=Intent(this,MainActivity::class.java)
+             startActivity(intent)
+        }
 
 
 
@@ -37,26 +46,62 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-
-
-
-        var catList= intent.getSerializableExtra("places") as CatList
+        var getLocation =intent.extras!!.getString("Activity").toString()
 
 
 
 
 
-       for (place in catList.items ){
+        if (getLocation =="1"){
 
-           val sanaa = LatLng(place.latitude.toDouble(),place.longitude.toDouble())
+            // get single location
+            var singlePlace= intent.getSerializableExtra("singleplace") as Places
+            val sanaa = LatLng(singlePlace.latitude.toDouble(),singlePlace.longitude.toDouble())
+
+            mMap.addMarker(MarkerOptions().position(sanaa).title(singlePlace.Describe).snippet(singlePlace.title))
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(sanaa))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sanaa, 14F))
+
+        }else if (getLocation=="2"){
+
+            // get latitude and longitude frome the map
+            var newlocation=LatLng(15.471558, 44.226781)
+            mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
+            mMap.addMarker(MarkerOptions().position(newlocation).title("NON"))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newlocation, 20F))
+            mMap.setOnMapClickListener(object :GoogleMap.OnMapClickListener {
+                override fun onMapClick(latlng :LatLng) {
+                    val location1 = LatLng(latlng.latitude,latlng.longitude)
+                    var location=latlng.latitude.toString()+","+latlng.longitude.toString()
+                    var loc=Intent()
+                    loc.putExtra("location",location.toString())
+                    mMap.clear()
+                    mMap.addMarker(MarkerOptions().position(location1))
+                    setResult(Activity.RESULT_OK,loc)
+                    finish()
+                }
+            })
+
+        }else if (getLocation=="0"){
+
+            // get all locations
+
+                var catList= intent.getSerializableExtra("places") as CatList
+
+                for (place in catList.items ){
+                    val sanaa = LatLng(place.latitude.toDouble(),place.longitude.toDouble())
+                    Log.d("lang",place.latitude.toString())
+                    mMap.addMarker(MarkerOptions().position(sanaa).title(place.Describe).snippet(place.title))
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(sanaa))
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sanaa, 14F))
+                }
+            }
 
 
-           Log.d("lang",place.latitude.toString())
-           mMap.addMarker(MarkerOptions().position(sanaa).title(place.Describe).snippet(place.title))
-           mMap.animateCamera(CameraUpdateFactory.newLatLng(sanaa))
-           mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sanaa, 14F))
 
-       }
+
+
+
 
 
 

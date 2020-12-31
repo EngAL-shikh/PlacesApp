@@ -64,20 +64,15 @@ class contactFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var view=inflater.inflate(R.layout.fragment_contact, container, false)
-
           var rec=view.findViewById(R.id.rec) as RecyclerView
+          var map_show=view.findViewById(R.id.map_show) as TextView
           var add1=view.findViewById(R.id.add) as FloatingActionButton
 
 
 
         add1.setOnClickListener {
-
             var intent= Intent(context,AddNewsLocation::class.java)
             startActivity(intent)
-
-
-
-
         }
 
 
@@ -90,31 +85,18 @@ class contactFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         if (contact=="Hospitals"){
-
             Log.d("adding","done")
             ViewModel.HospitalsListLiveData.observe(
                 viewLifecycleOwner,
                 Observer { places ->
                     places?.let {
-
                         Log.d("amroz",places.size.toString())
                         updateUI(places)
-
-
-                        ///list=Places
-                        // toMap(list)
-                       var list=CatList(places)
-
-                        var intent=Intent(context,MapsActivity::class.java)
-                        intent.putExtra("places",list)
-                        startActivity(intent)
-
-
-
-
-
+                        map_show.setOnClickListener {
+                            var list=CatList(places)
+                            toMap(list)
+                        }
                     }
                 })
         }else if (contact=="Schools"){
@@ -122,42 +104,42 @@ class contactFragment() : Fragment() {
                 viewLifecycleOwner,
                 Observer { places ->
                     places?.let {
-
                         Log.d("amroz",places.size.toString())
                         updateUI(places)
-
-
+                        map_show.setOnClickListener {
+                            var list=CatList(places)
+                            toMap(list)
+                        }
 
                     }
                 })
 
         }else if (contact=="Restaurants"){
-
             ViewModel.RestaurantsListLiveData.observe(
                 viewLifecycleOwner,
                 Observer { places ->
                     places?.let {
-
                         Log.d("amroz",places.size.toString())
                         updateUI(places)
-
-
+                        map_show.setOnClickListener {
+                            var list=CatList(places)
+                            toMap(list)
+                        }
 
                     }
                 })
 
         }else if (contact=="Cafes"){
-
             ViewModel.CafesListLiveData.observe(
                 viewLifecycleOwner,
                 Observer { places ->
                     places?.let {
-
                         Log.d("amroz",places.size.toString())
                         updateUI(places)
-
-
-
+                        map_show.setOnClickListener {
+                            var list=CatList(places)
+                            toMap(list)
+                        }
                     }
                 })
         }else{
@@ -165,26 +147,22 @@ class contactFragment() : Fragment() {
                 viewLifecycleOwner,
                 Observer { places ->
                     places?.let {
-
                         Log.d("amroz",places.size.toString())
                         updateUI(places)
-
-
-
+                        map_show.setOnClickListener {
+                            var list=CatList(places)
+                            toMap(list)
+                        }
                     }
                 })
-
         }
-
-
-
     }
 
     private inner class TaskHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = itemView.findViewById(R.id.title)
         val Describe: TextView = itemView.findViewById(R.id.Describe)
-        val latitude: TextView = itemView.findViewById(R.id.latitude)
-         val longitude: TextView = itemView.findViewById(R.id.longitude)
+        val type: TextView = itemView.findViewById(R.id.type)
+        val ic_type: TextView = itemView.findViewById(R.id.ic_type)
          val card: CardView = itemView.findViewById(R.id.places_card)
         // val add1: FloatingActionButton = itemView.findViewById(R.id.add)
 
@@ -199,17 +177,24 @@ class contactFragment() : Fragment() {
 
             title.text = this.places.title
             Describe.text = this.places.Describe
-            latitude.text = this.places.latitude.toString()
-            longitude.text = this.places.longitude.toString()
+            type.text = this.places.type.toString()
 
 
 
 
-            card.setOnClickListener {
+
+            ic_type.setOnClickListener {
 
 
-                //var list=  Places(0,places.title,places.Describe,places.latitude,places.longitude,1)
-              //  toMap(list)
+               var intent=Intent(context,MapsActivity::class.java)
+                  intent.putExtra("singleplace",places)
+                  intent.putExtra("Activity","1")
+//                intent.putExtra("long",places.longitude)
+//                intent.putExtra("title",places.title)
+//                intent.putExtra("det",places.Describe)
+//                intent.putExtra("single","true")
+
+                startActivity(intent)
 
 
             }
@@ -278,9 +263,10 @@ class contactFragment() : Fragment() {
 
 
 
-    fun toMap(places: Places){
+    fun toMap(list: CatList){
         var intent=Intent(context,MapsActivity::class.java)
-         intent.putExtra("places",places)
+        intent.putExtra("places",list)
+        intent.putExtra("Activity","0")
         startActivity(intent)
 
     }

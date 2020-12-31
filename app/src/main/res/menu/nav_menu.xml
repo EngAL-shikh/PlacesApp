@@ -4,33 +4,30 @@
     <group>
         <item
             android:id="@+id/nav_Hospitals"
-            android:icon="@drawable/ic_profile"
+            android:icon="@drawable/ic_hospital_24"
             android:title="Hospitals"/>
         <item
             android:id="@+id/nav_Schools"
-            android:icon="@drawable/ic_messages"
+            android:icon="@drawable/ic_school_24"
             android:title="Schools"/>
         <item
             android:id="@+id/nav_Restaurants"
-            android:icon="@drawable/ic_friends"
+            android:icon="@drawable/ic_restaurant_24"
             android:title="Restaurants"/>
         <item
             android:id="@+id/nav_Cafes"
-            android:icon="@drawable/ic_friends"
+            android:icon="@drawable/ic_cafe_24"
             android:title="Cafes"/>
         <item
             android:id="@+id/nav_SuperMarket"
-            android:icon="@drawable/ic_friends"
+            android:icon="@drawable/ic_sports_24"
             android:title="Super Market"/>
     </group>
 
 
     <item android:title="Account Settings">
         <menu>
-            <item
-                android:id="@+id/nav_update"
-                android:icon="@drawable/ic_update"
-                android:title="Update Profile"/>
+
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_signout"
