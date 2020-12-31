@@ -58,17 +58,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             var singlePlace= intent.getSerializableExtra("singleplace") as Places
             val sanaa = LatLng(singlePlace.latitude.toDouble(),singlePlace.longitude.toDouble())
 
-            mMap.addMarker(MarkerOptions().position(sanaa).title(singlePlace.Describe).snippet(singlePlace.title))
+            mMap.addMarker(MarkerOptions().position(sanaa).title(singlePlace.title).snippet(singlePlace.Describe))
             mMap.animateCamera(CameraUpdateFactory.newLatLng(sanaa))
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sanaa, 14F))
 
         }else if (getLocation=="2"){
 
             // get latitude and longitude frome the map
-            var newlocation=LatLng(15.471558, 44.226781)
+            var newlocation=LatLng(15.362812860935936, 44.20591257512569)
             mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
             mMap.addMarker(MarkerOptions().position(newlocation).title("NON"))
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newlocation, 20F))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newlocation, 12F))
             mMap.setOnMapClickListener(object :GoogleMap.OnMapClickListener {
                 override fun onMapClick(latlng :LatLng) {
                     val location1 = LatLng(latlng.latitude,latlng.longitude)
@@ -91,7 +91,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 for (place in catList.items ){
                     val sanaa = LatLng(place.latitude.toDouble(),place.longitude.toDouble())
                     Log.d("lang",place.latitude.toString())
-                    mMap.addMarker(MarkerOptions().position(sanaa).title(place.Describe).snippet(place.title))
+                    mMap.addMarker(MarkerOptions().position(sanaa).title(place.title).snippet(place.Describe))
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(sanaa))
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sanaa, 14F))
                 }
