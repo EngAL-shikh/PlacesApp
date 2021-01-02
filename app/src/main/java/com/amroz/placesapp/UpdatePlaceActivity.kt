@@ -106,10 +106,9 @@ class UpdatePlaceActivity : AppCompatActivity() {
                             et_lat.text.toString().toFloat(),
                             et_lang.text.toString().toFloat(),
                             type.selectedItem.toString())
-                        ViewModel.update(data)
+                            ViewModel.update(data)
 
                         var intent=Intent(this,MainActivity::class.java)
-
                         startActivity(intent)
 
                     }
