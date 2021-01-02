@@ -1,7 +1,9 @@
 package com.amroz.placesapp
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +16,9 @@ import kotlinx.android.synthetic.main.fragment_contact.*
 
 const val REQUEST_MAP=22
 class AddNewsLocation : AppCompatActivity() {
+    private val ViewModel by lazy {
+    ViewModelProviders.of(this).get(ViewModel::class.java)
+}
     lateinit var et_title:EditText
     lateinit var et_det:EditText
     lateinit var et_lat:EditText
@@ -21,9 +26,7 @@ class AddNewsLocation : AppCompatActivity() {
     lateinit var save:Button
     lateinit var add_location:TextView
 
-    private val ViewModel by lazy {
-        ViewModelProviders.of(this).get(ViewModel::class.java)
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_news_location)
@@ -139,4 +142,6 @@ fun  addNewLocation(){
             }
 }
     }
+
+
 }

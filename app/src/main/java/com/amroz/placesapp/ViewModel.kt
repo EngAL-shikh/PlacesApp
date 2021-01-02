@@ -17,8 +17,16 @@ class ViewModel : ViewModel() {
 
 
 
+    // add to place
+
     fun addtask(places: Places){
         placesRepository.addnewPlaces(places)
+    }
+
+    // update place
+
+    fun update(places: Places){
+        placesRepository.updatePlaces(places)
     }
 
     fun deletPlaces(places: Places){

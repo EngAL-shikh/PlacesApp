@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="112dp"
         android:layout_height="41dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,5 +56,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".MapsActivity" />
+
+    <ImageView
+        android:id="@+id/getRaylLocation"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/my_location_24"
+        android:text="get"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"></ImageView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

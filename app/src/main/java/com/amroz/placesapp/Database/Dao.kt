@@ -45,7 +45,7 @@ interface  Dao{
 
  //update
  @Query("UPDATE Places SET type= :level where id= :id ")
- fun updatePlacesToInprogress(level: Int,id:Int )
+ fun updatePlaces(level: Int,id:Int )
 
  @Delete
  fun deletePlaces(places: Places)

@@ -29,6 +29,13 @@ class PlacesRepository private constructor(context: Context){
          }
      }
 
+    // update
+
+    fun updatePlaces(plase: Places){
+        executor.execute{
+            Dao.updatePlaces(plase)
+        }
+    }
 
     // select  all
 
